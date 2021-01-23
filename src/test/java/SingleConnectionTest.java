@@ -33,4 +33,32 @@ public class SingleConnectionTest {
         }
     }
 
+    @Test
+    public void initBuscar() {
+        UserposjavaDao dao = new UserposjavaDao();
+
+        Userposjava userposjava = null;
+        try {
+            userposjava = dao.buscar(6L);
+            System.out.println(userposjava);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void initAtualizar() {
+        try {
+            UserposjavaDao dao = new UserposjavaDao();
+            Userposjava userBanco = dao.buscar(6L);
+            userBanco.setEmail("fabianaprado@gmail.com");
+
+            dao.atulizar(userBanco);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

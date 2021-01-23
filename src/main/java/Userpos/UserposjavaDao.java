@@ -59,4 +59,41 @@ public class UserposjavaDao {
         }
         return list;
     }
+
+    public Userposjava buscar(Long id) throws Exception {
+        Userposjava userpos = new Userposjava();
+
+        String sql = "select  * from userposjava where id = " + id;
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultado = statement.executeQuery();
+
+        while (resultado.next()) {
+
+            userpos.setId(resultado.getLong("id"));
+            userpos.setNome(resultado.getString("nome"));
+            userpos.setEmail(resultado.getString("email"));
+
+        }
+        return userpos;
+    }
+
+    public void atulizar(Userposjava userposjava) {
+
+        try {
+            String sql = "update userposjava set email = ? where id = " + userposjava.getId();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, userposjava.getEmail());
+            statement.execute();
+            connection.commit();
+
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception el) {
+                el.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+    }
 }
